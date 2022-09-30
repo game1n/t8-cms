@@ -28,5 +28,6 @@ jobs:
         cache: 'npm'
         
     - run: npm install -g yarn
+    - run: yarn install
     - run: yarn build
     - run: npm uninstall -g yarn
