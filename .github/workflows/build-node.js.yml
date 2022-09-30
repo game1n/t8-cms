@@ -27,12 +27,6 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
         
-    - name: Install Yarn
-      run: npm install -g yarn
-    
-    - name: yarn build
+    - run: npm install -g yarn
     - run: yarn build
-    
-    - name: Uninstall Yarn
-      if: always()
-      run: npm uninstall -g yarn
+    - run: npm uninstall -g yarn
