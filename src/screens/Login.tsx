@@ -21,7 +21,7 @@ const Login = () => {
             try {
                 const response = await signInWithPassword(formState.email, formState.password);
                 localStorage.setItem('persist-session', JSON.stringify(response));
-                navigate('/home', {replace: true});
+                navigate('/home');
             }   
            catch(error: any){
             alert(error?.error_description || error?.message)   

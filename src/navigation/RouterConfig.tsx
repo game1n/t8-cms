@@ -29,7 +29,6 @@ const RouterConfig = () => {
 			</Routes>
 		);
 	}
-	console.log(sessionPersist?.session);
 	return (
 		sessionPersist?.session ? <AuthPages /> : <NonAuthPages />
 	);
