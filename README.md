@@ -49,14 +49,14 @@ cd t8-cms
 
 ```bash 
 
-Yarn install
+yarn install
 ```
 
 4. Run the project
 
 ```bash 
 
-Yarn start
+yarn start
 ```
 
 5. Open the browser to visit the website at http://localhost:3000
