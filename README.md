@@ -48,13 +48,15 @@ cd t8-cms
 3. Install dependencies:
 
 ```bash 
-npm install
+
+Yarn install
 ```
 
 4. Run the project
 
 ```bash 
-npm run dev
+
+Yarn start
 ```
 
 5. Open the browser to visit the website at http://localhost:3000
