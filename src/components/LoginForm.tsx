@@ -1,13 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 interface LoginFormProps {
-    formTitle: string;
-    onButtonClick: () => void;
+    onButtonClick: (formState: { email: string; password: string, loginState: 'SIGN_IN' | 'SIGN_UP' }) => void;
 }
-const LoginForm = ({ formTitle, onButtonClick }: LoginFormProps) => {
+const LoginForm = ({onButtonClick }: LoginFormProps) => {
+    const [formState, setFormState] = useState<{ email: string; password: string, loginState: 'SIGN_IN' | 'SIGN_UP' }>({ email: "", password: "", loginState: 'SIGN_IN' })
+
+    const submit = () => {
+        onButtonClick(formState);
+    }
     return (
         <div style={{
             display: 'flex', justifyContent: 'center',
@@ -26,10 +30,12 @@ const LoginForm = ({ formTitle, onButtonClick }: LoginFormProps) => {
                     position: 'relative',
                 }}
             >
-                <Typography variant="h4">{formTitle}</Typography>
-                <TextField id="standard-basic" label="email" variant="standard" type="email"  fullWidth required />
-                <TextField id="standard-basic" label="passsword" variant="standard" type="password" fullWidth  required  />
-                <Button variant="outlined" color="primary" sx={{position: 'absolute' , bottom: 10, right: 10,}} onClick={onButtonClick} type="submit">{formTitle}</Button>
+                <Typography variant="h4">{formState.loginState === 'SIGN_IN' ? 'Login' : 'Sign Up'}</Typography>
+                <TextField label="email" variant="standard" type="email" value={formState.email} onChange={(e: any) => setFormState({ ...formState, email: e.target.value })} fullWidth required />
+                <TextField label="passsword" variant="standard" type="password" value={formState.password} onChange={(e: any) => setFormState({ ...formState, password: e.target.value })} fullWidth required />
+                {formState.loginState === 'SIGN_IN' && (<Typography onClick={() => setFormState({...formState, loginState: 'SIGN_UP'})} sx={{cursor: 'pointer'}}>Not having an account? Sign Up</Typography>)}
+                {formState.loginState === 'SIGN_UP' &&  (<Typography  onClick={() => setFormState({...formState, loginState: 'SIGN_IN'})} sx={{cursor: 'pointer'}}>Already having an account? Sign In</Typography>)}
+                <Button variant="outlined" color="primary" sx={{ position: 'absolute', bottom: 10, right: 10, }} onClick={submit} disabled={formState.email === ''}>{formState.loginState === 'SIGN_IN' ? 'Login' : 'Sign Up'}</Button>
             </Box>
         </div>
     )
