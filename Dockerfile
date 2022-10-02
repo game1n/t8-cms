@@ -1,8 +1,9 @@
-FROM node:16 AS build
-
+FROM node:16-alpine AS build
 
 ENV REACT_APP_SUPABASE_URL SUPABASE_DB_URL
 ENV REACT_APP_SUPABASE_ANON_KEY SUPABASE_API_KEY
+
+RUN apk add --no-cache python3 make g++
 
 WORKDIR /app
 
