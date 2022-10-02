@@ -1,14 +1,15 @@
-<!-- If your pull request closes a Issue, replace the # with the Issue number -->
-# Issue related
+<!-- If your pull request closes an issue, replace the # with the issue number -->
 
+#### Issue related
 - Closes #XXXXX
 
-# What is being changed?
+#### What is being changed?
+- Write a description giving the context of what is being delivered.
 
-- Put a description giving the context of what is being delivered.
+####  Evidences
 
-#  Evidences
+📷 Add the images, gifs or whatever you want to add to show what you did.
 
-📷 Add the images, gifs or whatever you want to add to show what you did
+#### Observations
 
-# Observations
+Any observation while working on this issue?
