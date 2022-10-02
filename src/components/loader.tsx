@@ -2,11 +2,11 @@ import { CircularProgress, CircularProgressProps } from '@mui/material';
 import React, { ReactElement } from 'react';
 
 export type LoaderProps = CircularProgressProps & {
-  shouldDisplaySpinner: boolean;
+  shouldDisplayLoader: boolean;
 };
 
 export const Loader = ({
-  shouldDisplaySpinner,
+  shouldDisplayLoader,
   ...props
 }: LoaderProps): ReactElement | null =>
-  shouldDisplaySpinner ? <CircularProgress {...props} /> : null;
+  shouldDisplayLoader ? <CircularProgress {...props} /> : null;
