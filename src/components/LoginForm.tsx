@@ -3,13 +3,13 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-interface LoginFormProps {
+type LoginFormProps = {
   onButtonClick: (formState: {
     email: string;
     password: string;
     loginState: 'SIGN_IN' | 'SIGN_UP';
   }) => void;
-}
+};
 const LoginForm = ({ onButtonClick }: LoginFormProps): ReactElement => {
   const [formState, setFormState] = useState<{
     email: string;
@@ -17,9 +17,8 @@ const LoginForm = ({ onButtonClick }: LoginFormProps): ReactElement => {
     loginState: 'SIGN_IN' | 'SIGN_UP';
   }>({ email: '', password: '', loginState: 'SIGN_IN' });
 
-  const submit = () => {
-    onButtonClick(formState);
-  };
+  const submit = (): void => onButtonClick(formState);
+
   return (
     <div
       style={{
