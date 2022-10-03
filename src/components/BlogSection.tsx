@@ -6,10 +6,17 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import { BlogSectionProps } from '../models/blog.models';
 import BlogForm from './BlogForm';
-const BlogSection = ({ blogs }: BlogSectionProps): ReactElement => {
+const BlogSection = ({ blogs, callback }: BlogSectionProps): ReactElement => {
   const [open, setOpen] = useState<boolean>(false);
   const handleOpen = (): void => setOpen(true);
-  const handleClose = (): void => setOpen(false);
+  const handleClose = (): void => {
+    setOpen(false);
+  };
+  const closeModalAfterBlogPublish = (): void => {
+    callback();
+    setOpen(false);
+  };
+
   const style = {
     position: 'absolute' as 'absolute',
     top: '50%',
@@ -79,7 +86,7 @@ const BlogSection = ({ blogs }: BlogSectionProps): ReactElement => {
           aria-describedby="modal-modal-description"
         >
           <Box sx={style}>
-            <BlogForm />
+            <BlogForm closeModal={closeModalAfterBlogPublish} />
           </Box>
         </Modal>
       </div>
@@ -94,10 +101,10 @@ const BlogsContainer = styled.div`
   width: 100%;
   display: flex;
   gap: 1rem;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   padding: 10px;
   align-items: flex-start;
-  justify-content: flex-start;
+  justify-content: center;
 `;
 
 const BlogContent = styled.div`

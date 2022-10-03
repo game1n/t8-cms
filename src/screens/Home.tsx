@@ -7,6 +7,12 @@ import BlogSection from '../components/BlogSection';
 const Home = (): ReactElement => {
   const [blogs, setBlogs] = useState<BlogSectionTypes[]>();
   const { session } = getSupabaseData();
+
+  const acceptCallbackFromModal = (): void => {
+    getAllBlogs(session?.user.id as string)
+      .then((response) => setBlogs(response))
+      .catch((error) => console.error(error));
+  };
   useEffect(() => {
     getAllBlogs(session?.user.id as string)
       .then((response) => setBlogs(response))
@@ -14,7 +20,10 @@ const Home = (): ReactElement => {
   }, []);
   return (
     <HomeContainer>
-      <BlogSection blogs={blogs as BlogSectionTypes[]} />
+      <BlogSection
+        blogs={blogs as BlogSectionTypes[]}
+        callback={acceptCallbackFromModal}
+      />
     </HomeContainer>
   );
 };
