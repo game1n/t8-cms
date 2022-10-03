@@ -3,7 +3,12 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  extends: ['plugin:react/jsx-runtime', 'plugin:react/recommended', 'standard-with-typescript', 'prettier'],
+  extends: [
+    'plugin:react/jsx-runtime',
+    'plugin:react/recommended',
+    'standard-with-typescript',
+    'prettier',
+  ],
   overrides: [],
   parserOptions: {
     ecmaVersion: 'latest',
@@ -11,7 +16,10 @@ module.exports = {
     project: ['./tsconfig.json'],
   },
   plugins: ['react'],
-  rules: {},
+  rules: {
+    '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
+    '@typescript-eslint/strict-boolean-expressions': 'off',
+  },
   settings: {
     react: {
       version: 'detect',
