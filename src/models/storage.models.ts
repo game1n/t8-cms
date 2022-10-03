@@ -1,5 +1,5 @@
 import { storageKeys } from '../enums/storage.enums';
-import { SupabaseData } from './supa-base.models';
+import { SupabaseData } from './supabase.models';
 
 export type StorageItems = {
   [storageKeys.supabaseData]: SupabaseData;
