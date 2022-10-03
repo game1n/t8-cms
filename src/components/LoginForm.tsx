@@ -1,23 +1,25 @@
-import React, { useState, ReactElement } from 'react';
+import React, { ReactElement, useState } from 'react';
+
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-type LoginFormProps = {
-  onButtonClick: (formState: {
-    email: string;
-    password: string;
-    loginState: 'SIGN_IN' | 'SIGN_UP';
-  }) => void;
-};
+
+import { getLoginLabel } from '../services/login.service';
+
+import { initialLoginFormState } from '../constants/login.constants';
+
+import { loginStates } from '../enums/login.enums';
+
+import { LoginFormProps, LoginFormState } from '../models/login.models';
+
 const LoginForm = ({ onButtonClick }: LoginFormProps): ReactElement => {
-  const [formState, setFormState] = useState<{
-    email: string;
-    password: string;
-    loginState: 'SIGN_IN' | 'SIGN_UP';
-  }>({ email: '', password: '', loginState: 'SIGN_IN' });
+  const [formState, setFormState] = useState<LoginFormState>(
+    initialLoginFormState
+  );
 
   const submit = (): void => onButtonClick(formState);
+  const loginLabel = getLoginLabel(formState.loginState);
 
   return (
     <div
@@ -47,9 +49,7 @@ const LoginForm = ({ onButtonClick }: LoginFormProps): ReactElement => {
           position: 'relative',
         }}
       >
-        <Typography variant="h4">
-          {formState.loginState === 'SIGN_IN' ? 'Login' : 'Sign Up'}
-        </Typography>
+        <Typography variant="h4">{loginLabel}</Typography>
         <TextField
           label="email"
           variant="standard"
@@ -75,7 +75,7 @@ const LoginForm = ({ onButtonClick }: LoginFormProps): ReactElement => {
         {formState.loginState === 'SIGN_IN' && (
           <Typography
             onClick={() =>
-              setFormState({ ...formState, loginState: 'SIGN_UP' })
+              setFormState({ ...formState, loginState: loginStates.signUp })
             }
             sx={{ cursor: 'pointer' }}
           >
@@ -85,7 +85,7 @@ const LoginForm = ({ onButtonClick }: LoginFormProps): ReactElement => {
         {formState.loginState === 'SIGN_UP' && (
           <Typography
             onClick={() =>
-              setFormState({ ...formState, loginState: 'SIGN_IN' })
+              setFormState({ ...formState, loginState: loginStates.signIn })
             }
             sx={{ cursor: 'pointer' }}
           >
@@ -99,7 +99,7 @@ const LoginForm = ({ onButtonClick }: LoginFormProps): ReactElement => {
           onClick={submit}
           disabled={formState.email === ''}
         >
-          {formState.loginState === 'SIGN_IN' ? 'Login' : 'Sign Up'}
+          {loginLabel}
         </Button>
       </Box>
     </div>

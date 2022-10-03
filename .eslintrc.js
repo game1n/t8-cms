@@ -18,6 +18,7 @@ module.exports = {
   plugins: ['react'],
   rules: {
     '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
+    '@typescript-eslint/strict-boolean-expressions': 'off',
   },
   settings: {
     react: {
