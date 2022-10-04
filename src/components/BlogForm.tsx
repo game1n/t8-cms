@@ -4,17 +4,20 @@ import { getSupabaseData } from '../services/supabase.service';
 import styled from 'styled-components';
 import Button from '@mui/material/Button';
 import { TextareaAutosize } from '@mui/material';
-import { WriteNewBlogTypes } from '../models/blog.models';
+import { WriteNewBlogTypes, BlogFormProps } from '../models/blog.models';
 import { writeNewBlogInitialState } from '../constants/blog.constants';
 import { writeNewBlog } from '../services/blog';
-const BlogForm = (): ReactElement => {
+const BlogForm = ({ closeModal }: BlogFormProps): ReactElement => {
   const { session } = getSupabaseData();
   const [formState, setFormState] = useState<WriteNewBlogTypes>(
     writeNewBlogInitialState
   );
   const publishBlog = (): void => {
+    closeModal();
     writeNewBlog(formState)
-      .then((response) => console.table(response))
+      .then((response) => {
+        console.table(response);
+      })
       .catch((error) => console.error(error));
   };
   return (

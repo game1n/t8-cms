@@ -14,9 +14,14 @@ export type WriteNewBlogTypes = {
   readingTime: string;
   tags: string[];
 };
+
+export type BlogFormProps = {
+  closeModal: () => void;
+};
 export type BlogCardProps = {
   cardContent: JSX.Element;
 };
 export type BlogSectionProps = {
   blogs: BlogSectionTypes[];
+  callback: () => void;
 };
