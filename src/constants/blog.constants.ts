@@ -2,6 +2,6 @@ export const writeNewBlogInitialState = {
   id: '',
   title: '',
   description: '',
-  readingTime: '',
+  readingTime: 0,
   tags: [],
 };

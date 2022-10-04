@@ -1,8 +1,8 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 import { BlogCardProps } from '../models/blog.models';
-const BlogCard = ({ cardContent }: BlogCardProps): ReactElement => {
-  return <Card>{cardContent}</Card>;
+const BlogCard = ({ cardContent, onClick }: BlogCardProps): ReactElement => {
+  return <Card onClick={onClick}>{cardContent}</Card>;
 };
 
 export default BlogCard;

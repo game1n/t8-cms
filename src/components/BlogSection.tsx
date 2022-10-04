@@ -4,36 +4,44 @@ import styled from 'styled-components';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
-import { BlogSectionProps } from '../models/blog.models';
+import { BlogSectionProps, WriteNewBlogTypes } from '../models/blog.models';
 import BlogForm from './BlogForm';
+import { writeNewBlogInitialState } from '../constants/blog.constants';
 const BlogSection = ({ blogs, callback }: BlogSectionProps): ReactElement => {
-  const [open, setOpen] = useState<boolean>(false);
-  const handleOpen = (): void => setOpen(true);
+  const [open, setOpen] = useState<{read: boolean; visibility: boolean}>({read: false, visibility: false});
+  const handleOpen = (read: boolean): void =>  setOpen({read, visibility: true});
+  const [readData, setReadData] = useState<WriteNewBlogTypes>(writeNewBlogInitialState)
   const handleClose = (): void => {
-    setOpen(false);
+    setOpen({read: false, visibility: false});
   };
   const closeModalAfterBlogPublish = (): void => {
     callback();
-    setOpen(false);
+    handleClose();
   };
 
+    const openReadingModal = ({id, title, description, tags, readingTime}: WriteNewBlogTypes): void => {
+      setReadData({id, title, description, tags, readingTime})
+      handleOpen(true);
+    }
   const style = {
     position: 'absolute' as 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
+    width: 700,
+    height: 600,
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
+    overflow: 'auto'
   };
 
   const constructBlogContent = (
     title: string,
     description: string,
     tags: string[],
-    readingTime: number
+    readingTime: number,
   ): ReactElement => {
     return (
       <BlogContent>
@@ -52,9 +60,20 @@ const BlogSection = ({ blogs, callback }: BlogSectionProps): ReactElement => {
       </BlogContent>
     );
   };
+
+  const constructReadContent = ( title: string,
+    description: string,
+   ): ReactElement => {
+      return (
+    <BlogContent>
+    <span className="title">{title}</span>
+    <span className="description">{description}</span>
+  </BlogContent>
+      );
+  }; 
   const AddNewBlogCard = (): ReactElement => {
     return (
-      <AddBlogContainer onClick={handleOpen}>
+      <AddBlogContainer onClick={() => handleOpen(false)}>
         <AddCircleIcon sx={{ height: 70, width: 70 }} color="primary" />
       </AddBlogContainer>
     );
@@ -73,6 +92,7 @@ const BlogSection = ({ blogs, callback }: BlogSectionProps): ReactElement => {
                   tags,
                   readingTime
                 )}
+                onClick={() => openReadingModal({id: blogId, title, description, tags, readingTime})}
               />
             </React.Fragment>
           );
@@ -80,13 +100,13 @@ const BlogSection = ({ blogs, callback }: BlogSectionProps): ReactElement => {
       </BlogsContainer>
       <div>
         <Modal
-          open={open}
+          open={open.visibility}
           onClose={handleClose}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
           <Box sx={style}>
-            <BlogForm closeModal={closeModalAfterBlogPublish} />
+            {open.read ? constructReadContent(readData.title, readData.description) :  <BlogForm closeModal={closeModalAfterBlogPublish} />}
           </Box>
         </Modal>
       </div>
@@ -98,13 +118,15 @@ export default BlogSection;
 
 const BlogsContainer = styled.div`
   height: 100%;
-  width: 100%;
+  width: 90%;
   display: flex;
   gap: 1rem;
+  margin: 1rem;
   flex-wrap: wrap;
   padding: 10px;
   align-items: flex-start;
   justify-content: center;
+
 `;
 
 const BlogContent = styled.div`
@@ -126,8 +148,7 @@ const BlogContent = styled.div`
     color: black;
     font-family: Roboto, arial, helvetica, sans-serif;
     font-size: 18px;
-    overflow: scroll;
-    text-overflow: ellipsis;
+    overflow: hidden;
     max-width: 75ch;
   }
   .bottom-container {

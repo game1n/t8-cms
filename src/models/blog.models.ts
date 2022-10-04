@@ -11,7 +11,7 @@ export type WriteNewBlogTypes = {
   id: string;
   title: string;
   description: string;
-  readingTime: string;
+  readingTime: number;
   tags: string[];
 };
 
@@ -20,6 +20,7 @@ export type BlogFormProps = {
 };
 export type BlogCardProps = {
   cardContent: JSX.Element;
+  onClick: () => void;
 };
 export type BlogSectionProps = {
   blogs: BlogSectionTypes[];
