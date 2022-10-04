@@ -32,7 +32,7 @@ const BlogForm = ({ closeModal }: BlogFormProps): ReactElement => {
         }
         fullWidth
         required
-        style={{ height: '40px' }}
+        style={{ height: '40px', fontFamily: 'Roboto, arial, helvetica, sans-serif', fontSize: '22px' }}
       />
       <TextareaAutosize
         maxRows={10}
@@ -41,7 +41,8 @@ const BlogForm = ({ closeModal }: BlogFormProps): ReactElement => {
         onChange={(e: any) =>
           setFormState({ ...formState, description: e.target.value })
         }
-        style={{ width: '100%', height: '150px' }}
+        className="blog-field"
+        style={{height: '500px', width: '100%', fontFamily: 'Roboto, arial, helvetica, sans-serif', fontSize: '22px'}}
       />
       <TextField
         label="reading time (in minutes)"
@@ -57,9 +58,27 @@ const BlogForm = ({ closeModal }: BlogFormProps): ReactElement => {
         }
         fullWidth
         required
-        style={{ height: '40px' }}
+        style={{ height: '40px', fontFamily: 'Roboto, arial, helvetica, sans-serif', fontSize: '22px' }}
+
       />
-      <Button variant="outlined" color="primary" onClick={publishBlog}>
+      <TextField
+        label="tags"
+        placeholder="add comma saperated tags, for eg. education, tech"
+        variant="standard"
+        type="text"
+        value={formState.tags.map((i) => i)}
+        onChange={(e: any) =>
+          setFormState({
+            ...formState,
+            tags: e.target.value.split(','),
+          })
+        }
+        fullWidth
+        required
+        style={{ height: '40px', fontFamily: 'Roboto, arial, helvetica, sans-serif', fontSize: '22px' }}
+
+      />
+      <Button variant="outlined" color="primary" onClick={publishBlog} disabled={formState.title === '' || formState.description === ''}>
         Publish
       </Button>
     </Container>
@@ -72,4 +91,5 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+
 `;

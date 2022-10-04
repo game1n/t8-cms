@@ -7,15 +7,37 @@ import {
   OnboardingFormType,
 } from '../models/onboarding.models';
 import { OnboardingFormInitialState } from '../constants/onboarding.constants';
+import { Modal,Box } from '@mui/material';
 
 const OnboardingForm = ({
+  modalOpen,
   id,
   updateUserDetails,
+  onModalClose,
 }: OnboardingFormProps): ReactElement => {
   const [formState, setFormState] = useState<OnboardingFormType>(
     OnboardingFormInitialState
   );
+  const style = {
+		position: 'absolute' as 'absolute',
+		top: '50%',
+		left: '50%',
+		transform: 'translate(-50%, -50%)',
+		width: 400,
+		bgcolor: 'background.paper',
+		border: '2px solid #000',
+		boxShadow: 24,
+		p: 4,
+	};
   return (
+    <div style={{height: '100%', width: '100%'}}>
+				<Modal
+					open={modalOpen}
+					onClose={onModalClose}
+					aria-labelledby='modal-modal-title'
+					aria-describedby='modal-modal-description'
+				>
+					<Box sx={style}>
     <Container>
       <TextField
         label="fullName"
@@ -34,7 +56,7 @@ const OnboardingForm = ({
         type="number"
         value={formState.phone}
         onChange={(e: any) =>
-          setFormState({ ...formState, phone: e.target.value })
+          setFormState({ ...formState, phone: e.target.value, id })
         }
         fullWidth
         required
@@ -42,11 +64,14 @@ const OnboardingForm = ({
       <Button
         variant="outlined"
         color="primary"
-        onClick={() => updateUserDetails(formState.fullName, formState.phone)}
+        onClick={() => updateUserDetails(formState)}
       >
         Submit
       </Button>
     </Container>
+    </Box>
+				</Modal>
+			</div>
   );
 };
 
