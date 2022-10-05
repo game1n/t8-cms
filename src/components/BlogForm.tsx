@@ -51,6 +51,7 @@ const BlogForm = ({ closeModal }: BlogFormProps): ReactElement => {
           width: '100%',
           fontFamily: 'Roboto, arial, helvetica, sans-serif',
           fontSize: '22px',
+          overflow: 'scroll',
         }}
       />
       <TextField

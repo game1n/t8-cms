@@ -65,6 +65,7 @@ const Home = (): ReactElement => {
       .then((response) => alert('data updated successfully'))
       .catch((error) => console.error(error));
     setOnboardingModal(false);
+    fetchUserDetails();
   };
   useEffect(() => {
     setLoading(true);
