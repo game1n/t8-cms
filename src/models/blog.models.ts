@@ -8,11 +8,13 @@ export type BlogSectionTypes = {
   createdAt: string;
 };
 export type WriteNewBlogTypes = {
+  blogId?: string;
   id: string;
   title: string;
   description: string;
   readingTime: number;
   tags: string[];
+  createdAt?: string;
 };
 
 export type BlogFormProps = {
@@ -25,4 +27,5 @@ export type BlogCardProps = {
 export type BlogSectionProps = {
   blogs: BlogSectionTypes[];
   callback: () => void;
+  fullName: string;
 };

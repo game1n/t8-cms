@@ -4,4 +4,5 @@ export const writeNewBlogInitialState = {
   description: '',
   readingTime: 0,
   tags: [],
+  createdAt: '',
 };
