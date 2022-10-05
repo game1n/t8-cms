@@ -1,4 +1,4 @@
 export type HeaderProps = {
-    name: string;
-    logOut: () => void;
-}
+  name: string;
+  logOut: () => void;
+};

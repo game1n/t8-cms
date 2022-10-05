@@ -9,10 +9,20 @@ import BlogForm from './BlogForm';
 import { writeNewBlogInitialState } from '../constants/blog.constants';
 import ShareIcon from '@mui/icons-material/Share';
 import moment from 'moment';
-const BlogSection = ({ blogs, callback, fullName }: BlogSectionProps): ReactElement => {
-  const [open, setOpen] = useState<{ read: boolean; visibility: boolean }>({ read: false, visibility: false });
-  const handleOpen = (read: boolean): void => setOpen({ read, visibility: true });
-  const [readData, setReadData] = useState<WriteNewBlogTypes>(writeNewBlogInitialState)
+const BlogSection = ({
+  blogs,
+  callback,
+  fullName,
+}: BlogSectionProps): ReactElement => {
+  const [open, setOpen] = useState<{ read: boolean; visibility: boolean }>({
+    read: false,
+    visibility: false,
+  });
+  const handleOpen = (read: boolean): void =>
+    setOpen({ read, visibility: true });
+  const [readData, setReadData] = useState<WriteNewBlogTypes>(
+    writeNewBlogInitialState
+  );
   const handleClose = (): void => {
     setOpen({ read: false, visibility: false });
   };
@@ -21,10 +31,17 @@ const BlogSection = ({ blogs, callback, fullName }: BlogSectionProps): ReactElem
     handleClose();
   };
 
-  const openReadingModal = ({id, title, description, tags, readingTime, createdAt }: WriteNewBlogTypes): void => {
-    setReadData({ id, title, description, tags, readingTime, createdAt })
+  const openReadingModal = ({
+    id,
+    title,
+    description,
+    tags,
+    readingTime,
+    createdAt,
+  }: WriteNewBlogTypes): void => {
+    setReadData({ id, title, description, tags, readingTime, createdAt });
     handleOpen(true);
-  }
+  };
   const style = {
     position: 'absolute' as 'absolute',
     top: '50%',
@@ -36,14 +53,14 @@ const BlogSection = ({ blogs, callback, fullName }: BlogSectionProps): ReactElem
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
-    overflow: 'auto'
+    overflow: 'auto',
   };
 
   const constructBlogContent = (
     title: string,
     description: string,
     tags: string[],
-    readingTime: number,
+    readingTime: number
   ): ReactElement => {
     return (
       <BlogContent>
@@ -63,23 +80,27 @@ const BlogSection = ({ blogs, callback, fullName }: BlogSectionProps): ReactElem
     );
   };
   const copyToClipboard = (id: string): void => {
-    navigator.clipboard.writeText(`https://game1n.live/blogs/${id}`).then(() => alert(`copied to clipboard, https://game1n.live/blogs/${id}`), () => alert('copy failed'))
-  }
+    navigator.clipboard.writeText(`https://game1n.live/blogs/${id}`).then(
+      () => alert(`copied to clipboard, https://game1n.live/blogs/${id}`),
+      () => alert('copy failed')
+    );
+  };
   const constructReadContent = (
     id: string,
     title: string,
     description: string,
-    createdAt: string,
+    createdAt: string
   ): ReactElement => {
     return (
       <BlogContent>
         <span className="title">{title}</span>
         <UtilContainer>
-          <span className="date">{moment(createdAt).format('DD MMM YYYY')}
+          <span className="date">
+            {moment(createdAt).format('DD MMM YYYY')}
           </span>
           <span className="publisher-name">{fullName}</span>
-          <ShareIcon onClick={() => copyToClipboard(id)}/>
-          </UtilContainer>
+          <ShareIcon onClick={() => copyToClipboard(id)} />
+        </UtilContainer>
         <p className="description">{description}</p>
       </BlogContent>
     );
@@ -95,21 +116,34 @@ const BlogSection = ({ blogs, callback, fullName }: BlogSectionProps): ReactElem
     <div style={{ height: '100%', width: '100%', position: 'relative' }}>
       <BlogsContainer>
         <AddNewBlogCard />
-        {blogs?.sort((a: any, b: any) => b.createdAt - a.createdAt).map(({ blogId, title, description, readingTime, tags, createdAt }) => {
-          return (
-            <React.Fragment key={blogId}>
-              <BlogCard
-                cardContent={constructBlogContent(
-                  title,
-                  description,
-                  tags,
-                  readingTime
-                )}
-                onClick={() => openReadingModal({ id: blogId, title, description, tags, readingTime, createdAt })}
-              />
-            </React.Fragment>
-          );
-        })}
+        {blogs
+          ?.sort((a: any, b: any) => b.createdAt - a.createdAt)
+          .map(
+            ({ blogId, title, description, readingTime, tags, createdAt }) => {
+              return (
+                <React.Fragment key={blogId}>
+                  <BlogCard
+                    cardContent={constructBlogContent(
+                      title,
+                      description,
+                      tags,
+                      readingTime
+                    )}
+                    onClick={() =>
+                      openReadingModal({
+                        id: blogId,
+                        title,
+                        description,
+                        tags,
+                        readingTime,
+                        createdAt,
+                      })
+                    }
+                  />
+                </React.Fragment>
+              );
+            }
+          )}
       </BlogsContainer>
       <div>
         <Modal
@@ -119,7 +153,16 @@ const BlogSection = ({ blogs, callback, fullName }: BlogSectionProps): ReactElem
           aria-describedby="modal-modal-description"
         >
           <Box sx={style}>
-            {open.read ? constructReadContent( readData.id, readData.title, readData.description, readData.createdAt as string) : <BlogForm closeModal={closeModalAfterBlogPublish} />}
+            {open.read ? (
+              constructReadContent(
+                readData.id,
+                readData.title,
+                readData.description,
+                readData.createdAt as string
+              )
+            ) : (
+              <BlogForm closeModal={closeModalAfterBlogPublish} />
+            )}
           </Box>
         </Modal>
       </div>
@@ -139,7 +182,6 @@ const BlogsContainer = styled.div`
   padding: 10px;
   align-items: flex-start;
   justify-content: center;
-
 `;
 
 const BlogContent = styled.div`
@@ -204,10 +246,9 @@ const UtilContainer = styled.div`
   display: flex;
   width: 100%;
   gap: 10px;
-  align-items:center;
+  align-items: center;
   justify-content: flex-start;
   .date {
     color: blue;
   }
-
 `;
