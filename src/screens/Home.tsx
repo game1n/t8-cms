@@ -82,6 +82,7 @@ const Home = (): ReactElement => {
       {!loading && <BlogSection
         blogs={blogs as BlogSectionTypes[]}
         callback={acceptCallbackFromModal}
+        fullName={userDetails?.[0]?.fullName}
       />}
       <OnboardingForm id={session?.user.id as string} modalOpen={onboardingModal} updateUserDetails={updateUserDetails} onModalClose={() => setOnboardingModal(false)}/>
       </div>
