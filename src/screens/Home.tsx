@@ -4,7 +4,7 @@ import { BlogSectionTypes } from '../models/blog.models';
 import { getAllBlogs } from '../services/blog';
 import styled from 'styled-components';
 import BlogSection from '../components/BlogSection';
-import { Loader } from '../components/loader';
+import { CircularLoader } from '../components/loader';
 import { getUserDetails, postUserDetails } from '../services/user';
 import { UserDetailsResponseType, UserDetailsPayloadType } from '../models/user.models';
 import { userDetailsInitialState } from '../constants/user.constants';
@@ -77,7 +77,7 @@ const Home = (): ReactElement => {
       <Header name={userDetails[0]?.fullName} logOut={endSession}/>
       <div className="body-contents">
       {loading && (<LoadingContainer>
-        <Loader shouldDisplayLoader={loading} size="50px" />
+        <CircularLoader shouldDisplayLoader={loading} size="50px" />
       </LoadingContainer>)}
       {!loading && <BlogSection
         blogs={blogs as BlogSectionTypes[]}
