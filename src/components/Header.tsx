@@ -28,7 +28,7 @@ const Header = ({ name, logOut }: HeaderProps): ReactElement => {
           select
           variant="standard"
           style={{ width: '70px' }}
-          value={name.slice(0, 5)}
+          value={name?.slice(0, 5)}
           placeholder={name}
         >
           <MenuItem>{name}</MenuItem>
