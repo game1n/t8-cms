@@ -1,6 +1,6 @@
 export const userDetailsInitialState = {
-    id: '',
-    fullName: '',
-    phone: '',
-    createdAt: ''
-}
+  id: '',
+  fullName: '',
+  phone: '',
+  createdAt: '',
+};

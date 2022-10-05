@@ -32,7 +32,11 @@ const BlogForm = ({ closeModal }: BlogFormProps): ReactElement => {
         }
         fullWidth
         required
-        style={{ height: '40px', fontFamily: 'Roboto, arial, helvetica, sans-serif', fontSize: '22px' }}
+        style={{
+          height: '40px',
+          fontFamily: 'Roboto, arial, helvetica, sans-serif',
+          fontSize: '22px',
+        }}
       />
       <TextareaAutosize
         maxRows={10}
@@ -42,7 +46,12 @@ const BlogForm = ({ closeModal }: BlogFormProps): ReactElement => {
           setFormState({ ...formState, description: e.target.value })
         }
         className="blog-field"
-        style={{height: '500px', width: '100%', fontFamily: 'Roboto, arial, helvetica, sans-serif', fontSize: '22px'}}
+        style={{
+          height: '500px',
+          width: '100%',
+          fontFamily: 'Roboto, arial, helvetica, sans-serif',
+          fontSize: '22px',
+        }}
       />
       <TextField
         label="reading time (in minutes)"
@@ -58,8 +67,11 @@ const BlogForm = ({ closeModal }: BlogFormProps): ReactElement => {
         }
         fullWidth
         required
-        style={{ height: '40px', fontFamily: 'Roboto, arial, helvetica, sans-serif', fontSize: '22px' }}
-
+        style={{
+          height: '40px',
+          fontFamily: 'Roboto, arial, helvetica, sans-serif',
+          fontSize: '22px',
+        }}
       />
       <TextField
         label="tags"
@@ -75,10 +87,18 @@ const BlogForm = ({ closeModal }: BlogFormProps): ReactElement => {
         }
         fullWidth
         required
-        style={{ height: '40px', fontFamily: 'Roboto, arial, helvetica, sans-serif', fontSize: '22px' }}
-
+        style={{
+          height: '40px',
+          fontFamily: 'Roboto, arial, helvetica, sans-serif',
+          fontSize: '22px',
+        }}
       />
-      <Button variant="outlined" color="primary" onClick={publishBlog} disabled={formState.title === '' || formState.description === ''}>
+      <Button
+        variant="outlined"
+        color="primary"
+        onClick={publishBlog}
+        disabled={formState.title === '' || formState.description === ''}
+      >
         Publish
       </Button>
     </Container>
@@ -91,5 +111,4 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
-
 `;

@@ -1,9 +1,8 @@
-
 type onboardingFields = {
-  fullName: string; 
-  phone: string; 
-  id: string
-}
+  fullName: string;
+  phone: string;
+  id: string;
+};
 export type OnboardingFormProps = {
   modalOpen: boolean;
   id: string;

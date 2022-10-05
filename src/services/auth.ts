@@ -19,15 +19,15 @@ export const signInWithPassword = async (
   credentials: SignUpWithPasswordCredentials
 ): Promise<AuthResponse> => await supabase.auth.signInWithPassword(credentials);
 
-export const logOut = async(navigate: NavigateFunction): Promise<void> => {
-  const { error } = await supabase.auth.signOut()
-  if(error){
+export const logOut = async (navigate: NavigateFunction): Promise<void> => {
+  const { error } = await supabase.auth.signOut();
+  if (error) {
     throw error;
   }
-  setSupabaseData({user: null, session: null})
+  setSupabaseData({ user: null, session: null });
   localStorage.clear();
   location.reload();
-}
+};
 export const signWithPassword = async (
   { loginState, ...formState }: LoginFormState,
   navigate: NavigateFunction
