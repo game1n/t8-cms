@@ -19,6 +19,7 @@ export type WriteNewBlogTypes = {
   tags: string[];
   createdAt?: string;
   publisherName: string;
+  blogImage?: string;
 };
 
 export type BlogFormProps = {

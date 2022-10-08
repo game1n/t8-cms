@@ -6,7 +6,8 @@ import Button from '@mui/material/Button';
 import { TextareaAutosize } from '@mui/material';
 import { WriteNewBlogTypes, BlogFormProps } from '../models/blog.models';
 import { writeNewBlogInitialState } from '../constants/blog.constants';
-import { writeNewBlog } from '../services/blog';
+import { writeNewBlog, uploadImage } from '../services/blog';
+import uuid from 'react-uuid';
 const BlogForm = ({ publisherName, closeModal }: BlogFormProps): ReactElement => {
   const { session } = getSupabaseData();
   const [formState, setFormState] = useState<WriteNewBlogTypes>(
@@ -20,6 +21,13 @@ const BlogForm = ({ publisherName, closeModal }: BlogFormProps): ReactElement =>
       })
       .catch((error) => console.error(error));
   };
+
+  const onImageUpload = (img: any): void => {
+    uploadImage(uuid(), img.target.files[0]).then((response) => {
+      console.log(response);
+      setFormState({...formState, blogImage: `https://trrzsuqmthjjgjquxcwu.supabase.co/storage/v1/object/public/blog-image/${response.path as string}`});
+    }).catch((err) => console.error(err));
+  }
   return (
     <Container>
       <TextField
@@ -69,6 +77,16 @@ const BlogForm = ({ publisherName, closeModal }: BlogFormProps): ReactElement =>
           fontSize: '22px',
           overflow: 'scroll',
         }}
+      />
+       <input 
+      type="file"
+      placeholder="upload image"
+      onChange={(e: any) => onImageUpload(e)}
+      // style={{
+      //   height: '40px',
+      //   width: '100%',
+      //   fontSize: '22px',
+      // }}
       />
       <TextField
         label="reading time (in minutes)"
