@@ -38,8 +38,10 @@ const BlogSection = ({
     tags,
     readingTime,
     createdAt,
+    heading,
+    publisherName
   }: WriteNewBlogTypes): void => {
-    setReadData({ id, title, description, tags, readingTime, createdAt });
+    setReadData({ id, title, description, tags, readingTime, createdAt, heading, publisherName });
     handleOpen(true);
   };
   const style = {
@@ -119,7 +121,7 @@ const BlogSection = ({
         {blogs
           ?.sort((a: any, b: any) => b.createdAt - a.createdAt)
           .map(
-            ({ blogId, title, description, readingTime, tags, createdAt }) => {
+            ({ blogId, title, description, readingTime, tags, createdAt, heading, publisherName }) => {
               return (
                 <React.Fragment key={blogId}>
                   <BlogCard
@@ -137,6 +139,8 @@ const BlogSection = ({
                         tags,
                         readingTime,
                         createdAt,
+                        heading,
+                        publisherName
                       })
                     }
                   />
@@ -161,7 +165,7 @@ const BlogSection = ({
                 readData.createdAt as string
               )
             ) : (
-              <BlogForm closeModal={closeModalAfterBlogPublish} />
+              <BlogForm closeModal={closeModalAfterBlogPublish} publisherName={fullName}/>
             )}
           </Box>
         </Modal>

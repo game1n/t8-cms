@@ -7,7 +7,7 @@ import { TextareaAutosize } from '@mui/material';
 import { WriteNewBlogTypes, BlogFormProps } from '../models/blog.models';
 import { writeNewBlogInitialState } from '../constants/blog.constants';
 import { writeNewBlog } from '../services/blog';
-const BlogForm = ({ closeModal }: BlogFormProps): ReactElement => {
+const BlogForm = ({ publisherName, closeModal }: BlogFormProps): ReactElement => {
   const { session } = getSupabaseData();
   const [formState, setFormState] = useState<WriteNewBlogTypes>(
     writeNewBlogInitialState
@@ -29,6 +29,22 @@ const BlogForm = ({ closeModal }: BlogFormProps): ReactElement => {
         value={formState.title}
         onChange={(e: any) =>
           setFormState({ ...formState, title: e.target.value })
+        }
+        fullWidth
+        required
+        style={{
+          height: '40px',
+          fontFamily: 'Roboto, arial, helvetica, sans-serif',
+          fontSize: '22px',
+        }}
+      />
+       <TextField
+        label="heading"
+        variant="standard"
+        type="text"
+        value={formState.heading}
+        onChange={(e: any) =>
+          setFormState({ ...formState, heading: e.target.value })
         }
         fullWidth
         required
@@ -64,6 +80,7 @@ const BlogForm = ({ closeModal }: BlogFormProps): ReactElement => {
             ...formState,
             readingTime: e.target.value,
             id: session?.user?.id as string,
+            publisherName: publisherName as string
           })
         }
         fullWidth
