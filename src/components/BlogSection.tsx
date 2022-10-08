@@ -127,7 +127,7 @@ const BlogSection = ({
                   <BlogCard
                     cardContent={constructBlogContent(
                       title,
-                      description,
+                      heading,
                       tags,
                       readingTime
                     )}

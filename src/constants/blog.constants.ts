@@ -7,4 +7,5 @@ export const writeNewBlogInitialState = {
   tags: [],
   publisherName: '',
   createdAt: new Date().toDateString(),
+  blogImage: '',
 };
