@@ -2,6 +2,8 @@
 
 T8 is a minimal CMS for static sites and blogs.
 
+[![npm version](https://badge.fury.io/js/t8-cms.svg)](https://badge.fury.io/js/t8-cms)
+
 ##### Tech Stack
   - ReactJS
   - TypeScript 
