@@ -5,7 +5,12 @@ import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
 import { HeaderProps } from '../models/header.models';
 import LogoutIcon from '@mui/icons-material/Logout';
-const Header = ({ leftContainer, logOut, name, search = false }: HeaderProps): ReactElement => {
+const Header = ({
+  leftContainer,
+  logOut,
+  name,
+  search = false,
+}: HeaderProps): ReactElement => {
   return (
     <HeaderContainer>
       <CmsTitle>{leftContainer}</CmsTitle>

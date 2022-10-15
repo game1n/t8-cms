@@ -1,4 +1,4 @@
-import React, {ReactElement} from 'react'
+import React, { ReactElement } from 'react';
 // import ReactMarkdown from 'react-markdown'
 // import remarkGfm from 'remark-gfm'
 
@@ -19,10 +19,10 @@ import React, {ReactElement} from 'react'
 // [![Foo](http://www.google.com.au/images/nav_logo7.png)](http://google.com.au/)
 
 const MarkdownPost = (): ReactElement => {
-    return (
-        // eslint-disable-next-line react/no-children-prop
-       <div>hey</div>
-    );
-}
+  return (
+    // eslint-disable-next-line react/no-children-prop
+    <div>hey</div>
+  );
+};
 
 export default MarkdownPost;

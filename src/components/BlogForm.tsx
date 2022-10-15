@@ -8,7 +8,11 @@ import { WriteNewBlogTypes, BlogFormProps } from '../models/blog.models';
 import { writeNewBlogInitialState } from '../constants/blog.constants';
 import { writeNewBlog, uploadImage } from '../services/blog';
 import uuid from 'react-uuid';
-const BlogForm = ({ publisherName, closeModal, navigate }: BlogFormProps): ReactElement => {
+const BlogForm = ({
+  publisherName,
+  closeModal,
+  navigate,
+}: BlogFormProps): ReactElement => {
   const { session } = getSupabaseData();
   const [formState, setFormState] = useState<WriteNewBlogTypes>(
     writeNewBlogInitialState
@@ -19,7 +23,21 @@ const BlogForm = ({ publisherName, closeModal, navigate }: BlogFormProps): React
         console.table(response);
       })
       .catch((error) => console.error(error));
-      navigate('/home');
+    navigate('/home');
+  };
+
+  const onImageUpload = (img: any): void => {
+    uploadImage(uuid(), img.target.files[0])
+      .then((response) => {
+        setFormState({
+          ...formState,
+          blogImage: `https://trrzsuqmthjjgjquxcwu.supabase.co/storage/v1/object/public/blog-image/${
+            response.path as string
+          }`,
+        });
+      })
+      .catch((err) => console.error(err));
+    publishBlog();
   };
 
   const onImageUpload = (img: any): void => {
@@ -46,7 +64,7 @@ const BlogForm = ({ publisherName, closeModal, navigate }: BlogFormProps): React
           fontSize: '22px',
         }}
       />
-       <TextField
+      <TextField
         label="Heading"
         variant="standard"
         type="text"
@@ -80,6 +98,15 @@ const BlogForm = ({ publisherName, closeModal, navigate }: BlogFormProps): React
           borderRadius: 6,
         }}
       />
+      <input
+        type="file"
+        placeholder="upload image"
+        onChange={(e: any) => onImageUpload(e)}
+        // style={{
+        //   height: '40px',
+        //   width: '100%',
+        //   fontSize: '22px',
+        // }}
        <input 
       type="file"
       placeholder="upload image"
@@ -100,7 +127,7 @@ const BlogForm = ({ publisherName, closeModal, navigate }: BlogFormProps): React
             ...formState,
             readingTime: e.target.value,
             id: session?.user?.id as string,
-            publisherName: publisherName as string
+            publisherName: publisherName as string,
           })
         }
         fullWidth

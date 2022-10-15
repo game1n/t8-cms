@@ -20,11 +20,12 @@ export const writeNewBlog = async (
   throw error as any;
 };
 
-export const uploadImage = async(id: string, image: string): Promise<any> => {
-  const {data, error} = await supabase.storage.from('blog-image').upload(id, image)
-  if(data){
+export const uploadImage = async (id: string, image: string): Promise<any> => {
+  const { data, error } = await supabase.storage
+    .from('blog-image')
+    .upload(id, image);
+  if (data) {
     return data as any;
-
   }
   throw error as any;
-}
+};
