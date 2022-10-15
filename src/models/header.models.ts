@@ -1,4 +1,6 @@
 export type HeaderProps = {
-  name: string;
+  leftContainer: string | JSX.Element;
   logOut: () => void;
+  name?: string;
+  search?: boolean;
 };

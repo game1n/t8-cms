@@ -2,6 +2,8 @@
 
 T8 is a minimal CMS for static sites and blogs.
 
+[![npm version](https://badge.fury.io/js/t8-cms.svg)](https://badge.fury.io/js/t8-cms)
+
 ##### Tech Stack
   - ReactJS
   - TypeScript 
@@ -59,4 +61,9 @@ yarn start
 
 5. Open the browser to visit the website at http://localhost:3000
 
+
+
+##### DB Setup
+
+The DDL file `t8_ddl.sql` for setting up tables is present in `./resources/postgres/`. It has the DDL for the all the tables required for t8 and the steps to run this file to setup your local postgres DB are present in the file. Since we currently don't support local DB access and are directly using Supabase, you can refer the DDL for table schema and index to setup your own Supabase DB to work with t8.
 
