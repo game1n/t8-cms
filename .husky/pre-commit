@@ -1,4 +1,16 @@
-#!/usr/bin/env sh
+#!/bin/sh
 . "$(dirname -- "$0")/_/husky.sh"
 
+yarn lint
 yarn format
+
+yarn lint || 
+{
+    echo 'ESlint check failed'
+    false;
+}
+
+echo 'Alright, eslint success'
+echo 'all checks passed'
+
+exit 0
