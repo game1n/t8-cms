@@ -1,7 +1,8 @@
 const routerPaths = {
   Login: '/login',
   Home: '/home',
-  blogs: '/blogs/:id',
+  Blogs: '/blogs/:id',
+  Publish: '/publish',
   NoRouteFound: '*',
 };
 

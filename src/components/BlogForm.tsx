@@ -8,30 +8,30 @@ import { WriteNewBlogTypes, BlogFormProps } from '../models/blog.models';
 import { writeNewBlogInitialState } from '../constants/blog.constants';
 import { writeNewBlog, uploadImage } from '../services/blog';
 import uuid from 'react-uuid';
-const BlogForm = ({ publisherName, closeModal }: BlogFormProps): ReactElement => {
+const BlogForm = ({ publisherName, closeModal, navigate }: BlogFormProps): ReactElement => {
   const { session } = getSupabaseData();
   const [formState, setFormState] = useState<WriteNewBlogTypes>(
     writeNewBlogInitialState
   );
   const publishBlog = (): void => {
-    closeModal();
     writeNewBlog(formState)
       .then((response) => {
         console.table(response);
       })
       .catch((error) => console.error(error));
+      navigate('/home');
   };
 
   const onImageUpload = (img: any): void => {
     uploadImage(uuid(), img.target.files[0]).then((response) => {
-      console.log(response);
       setFormState({...formState, blogImage: `https://trrzsuqmthjjgjquxcwu.supabase.co/storage/v1/object/public/blog-image/${response.path as string}`});
     }).catch((err) => console.error(err));
+    publishBlog()
   }
   return (
     <Container>
       <TextField
-        label="title"
+        label="Title"
         variant="standard"
         type="text"
         value={formState.title}
@@ -47,7 +47,7 @@ const BlogForm = ({ publisherName, closeModal }: BlogFormProps): ReactElement =>
         }}
       />
        <TextField
-        label="heading"
+        label="Heading"
         variant="standard"
         type="text"
         value={formState.heading}
@@ -64,7 +64,7 @@ const BlogForm = ({ publisherName, closeModal }: BlogFormProps): ReactElement =>
       />
       <TextareaAutosize
         maxRows={10}
-        placeholder="blog body"
+        placeholder="Body"
         value={formState.description}
         onChange={(e: any) =>
           setFormState({ ...formState, description: e.target.value })
@@ -75,7 +75,9 @@ const BlogForm = ({ publisherName, closeModal }: BlogFormProps): ReactElement =>
           width: '100%',
           fontFamily: 'Roboto, arial, helvetica, sans-serif',
           fontSize: '22px',
-          overflow: 'scroll',
+          overflowY: 'scroll',
+          padding: '6px',
+          borderRadius: 6,
         }}
       />
        <input 
@@ -89,7 +91,7 @@ const BlogForm = ({ publisherName, closeModal }: BlogFormProps): ReactElement =>
       // }}
       />
       <TextField
-        label="reading time (in minutes)"
+        label="Reading time (in minutes)"
         variant="standard"
         type="number"
         value={formState.readingTime}
@@ -110,7 +112,7 @@ const BlogForm = ({ publisherName, closeModal }: BlogFormProps): ReactElement =>
         }}
       />
       <TextField
-        label="tags"
+        label="Tags"
         placeholder="add comma saperated tags, for eg. education, tech"
         variant="standard"
         type="text"
@@ -132,7 +134,7 @@ const BlogForm = ({ publisherName, closeModal }: BlogFormProps): ReactElement =>
       <Button
         variant="outlined"
         color="primary"
-        onClick={publishBlog}
+        onClick={onImageUpload}
         disabled={formState.title === '' || formState.description === ''}
       >
         Publish

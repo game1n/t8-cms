@@ -23,8 +23,9 @@ export type WriteNewBlogTypes = {
 };
 
 export type BlogFormProps = {
-  closeModal: () => void;
+  closeModal?: () => void;
   publisherName?: string;
+  navigate: (path: string) => void;
 };
 export type BlogCardProps = {
   cardContent: JSX.Element;
