@@ -1,4 +1,3 @@
-
 import React, { ReactElement } from 'react';
 import BlogForm from '../components/BlogForm';
 import Header from '../components/Header';

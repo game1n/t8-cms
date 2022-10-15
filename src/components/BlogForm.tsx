@@ -100,7 +100,7 @@ const BlogForm = ({
         //   width: '100%',
         //   fontSize: '22px',
         // }}
-        />
+      />
       <TextField
         label="Reading time (in minutes)"
         variant="standard"
