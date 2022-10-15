@@ -39,6 +39,13 @@ const BlogForm = ({
       .catch((err) => console.error(err));
     publishBlog();
   };
+
+  const onImageUpload = (img: any): void => {
+    uploadImage(uuid(), img.target.files[0]).then((response) => {
+      setFormState({...formState, blogImage: `https://trrzsuqmthjjgjquxcwu.supabase.co/storage/v1/object/public/blog-image/${response.path as string}`});
+    }).catch((err) => console.error(err));
+    publishBlog()
+  }
   return (
     <Container>
       <TextField
@@ -100,6 +107,15 @@ const BlogForm = ({
         //   width: '100%',
         //   fontSize: '22px',
         // }}
+       <input 
+      type="file"
+      placeholder="upload image"
+      onChange={(e: any) => onImageUpload(e)}
+      // style={{
+      //   height: '40px',
+      //   width: '100%',
+      //   fontSize: '22px',
+      // }}
       />
       <TextField
         label="Reading time (in minutes)"
