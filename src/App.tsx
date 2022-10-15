@@ -5,9 +5,9 @@ import RouterConfig from './navigation/RouterConfig';
 function App(): ReactElement {
   return (
     <div className="App">
-        <Router>
-          <RouterConfig />
-        </Router>
+      <Router>
+        <RouterConfig />
+      </Router>
     </div>
   );
 }

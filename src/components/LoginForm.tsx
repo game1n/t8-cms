@@ -21,7 +21,7 @@ const LoginForm = ({ onButtonClick }: LoginFormProps): ReactElement => {
   const submit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
     e.preventDefault();
     onButtonClick(formState);
-  }
+  };
 
   const loginLabel = getLoginLabel(formState.loginState);
 
@@ -100,7 +100,7 @@ const LoginForm = ({ onButtonClick }: LoginFormProps): ReactElement => {
           variant="outlined"
           color="primary"
           sx={{ position: 'absolute', bottom: 10, right: 10 }}
-          type='submit'
+          type="submit"
           onClick={submit}
           disabled={formState.email === ''}
         >

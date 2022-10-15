@@ -12,7 +12,7 @@ import { userDetailsInitialState } from '.././constants/user.constants';
 import { getUserDetails } from '.././services/user';
 import UserContext from '../store/userContext';
 import UserReducer from '../reducers/user/reducer';
-import {UPDATE_USER_DETAILS} from '../reducers/user/action';
+import { UPDATE_USER_DETAILS } from '../reducers/user/action';
 const NonAuthPages = (): ReactElement => (
   <Routes>
     <Route path="/" element={<Navigate to={routerPaths.Login} />} />
@@ -24,45 +24,50 @@ const NonAuthPages = (): ReactElement => (
 );
 
 const AuthPages = (): ReactElement => {
-
-  return (<Routes>
-    <Route path="/login" element={<Navigate to={routerPaths.Home} />} />
-    <Route path="/" element={<Navigate to={routerPaths.Home} />} />
-    <Route path={routerPaths.Home} element={<Home />} />
-    <Route path={routerPaths.Publish} element={<Publish />} />
-  </Routes>);
+  return (
+    <Routes>
+      <Route path="/login" element={<Navigate to={routerPaths.Home} />} />
+      <Route path="/" element={<Navigate to={routerPaths.Home} />} />
+      <Route path={routerPaths.Home} element={<Home />} />
+      <Route path={routerPaths.Publish} element={<Publish />} />
+    </Routes>
+  );
 };
 
 const RouterConfig = (): ReactElement => {
   const { session } = getSupabaseData();
-  const [userState, userDispatch] = useReducer(UserReducer, userDetailsInitialState)
+  const [userState, userDispatch] = useReducer(
+    UserReducer,
+    userDetailsInitialState
+  );
   const provideState = {
     userState,
     userDispatch,
-  }
+  };
   const fetchUserDetails = (): void => {
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     getUserDetails(session?.user.id as string)
       .then((response) => {
-        userDispatch({type:UPDATE_USER_DETAILS, payload: response});
+        userDispatch({ type: UPDATE_USER_DETAILS, payload: response });
         if (response.length === 0) {
           console.log('triggered');
         }
       })
       .catch((error) => {
         console.error(error);
-
       });
   };
 
   useEffect(() => {
     fetchUserDetails();
-  }, [])
+  }, []);
   return session ? (
     <UserContext.Provider value={provideState}>
       <AuthPages />
     </UserContext.Provider>
-  ) : <NonAuthPages />;
+  ) : (
+    <NonAuthPages />
+  );
 };
 
 export default RouterConfig;
