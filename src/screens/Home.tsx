@@ -83,7 +83,12 @@ const Home = (): ReactElement => {
   console.log(userDetails);
   return (
     <HomeContainer>
-      <Header name={userDetails[0]?.fullName} logOut={endSession} />
+      <Header
+        name={userDetails[0]?.fullName}
+        logOut={endSession}
+        leftContainer="t8 CMS"
+        search={true}
+      />
       <div className="body-contents">
         {loading && (
           <LoadingContainer>

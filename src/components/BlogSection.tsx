@@ -5,15 +5,16 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import { BlogSectionProps, WriteNewBlogTypes } from '../models/blog.models';
-import BlogForm from './BlogForm';
 import { writeNewBlogInitialState } from '../constants/blog.constants';
 import ShareIcon from '@mui/icons-material/Share';
 import moment from 'moment';
+import { useNavigate } from 'react-router-dom';
 const BlogSection = ({
   blogs,
   callback,
   fullName,
 }: BlogSectionProps): ReactElement => {
+  const navigate = useNavigate();
   const [open, setOpen] = useState<{ read: boolean; visibility: boolean }>({
     read: false,
     visibility: false,
@@ -26,10 +27,6 @@ const BlogSection = ({
   const handleClose = (): void => {
     setOpen({ read: false, visibility: false });
   };
-  const closeModalAfterBlogPublish = (): void => {
-    callback();
-    handleClose();
-  };
 
   const openReadingModal = ({
     id,
@@ -38,8 +35,19 @@ const BlogSection = ({
     tags,
     readingTime,
     createdAt,
+    heading,
+    publisherName,
   }: WriteNewBlogTypes): void => {
-    setReadData({ id, title, description, tags, readingTime, createdAt });
+    setReadData({
+      id,
+      title,
+      description,
+      tags,
+      readingTime,
+      createdAt,
+      heading,
+      publisherName,
+    });
     handleOpen(true);
   };
   const style = {
@@ -107,7 +115,7 @@ const BlogSection = ({
   };
   const AddNewBlogCard = (): ReactElement => {
     return (
-      <AddBlogContainer onClick={() => handleOpen(false)}>
+      <AddBlogContainer onClick={() => navigate('/publish')}>
         <AddCircleIcon sx={{ height: 70, width: 70 }} color="primary" />
       </AddBlogContainer>
     );
@@ -119,13 +127,22 @@ const BlogSection = ({
         {blogs
           ?.sort((a: any, b: any) => b.createdAt - a.createdAt)
           .map(
-            ({ blogId, title, description, readingTime, tags, createdAt }) => {
+            ({
+              blogId,
+              title,
+              description,
+              readingTime,
+              tags,
+              createdAt,
+              heading,
+              publisherName,
+            }) => {
               return (
                 <React.Fragment key={blogId}>
                   <BlogCard
                     cardContent={constructBlogContent(
                       title,
-                      description,
+                      heading,
                       tags,
                       readingTime
                     )}
@@ -137,6 +154,8 @@ const BlogSection = ({
                         tags,
                         readingTime,
                         createdAt,
+                        heading,
+                        publisherName,
                       })
                     }
                   />
@@ -153,16 +172,13 @@ const BlogSection = ({
           aria-describedby="modal-modal-description"
         >
           <Box sx={style}>
-            {open.read ? (
+            {open.read &&
               constructReadContent(
                 readData.id,
                 readData.title,
                 readData.description,
                 readData.createdAt as string
-              )
-            ) : (
-              <BlogForm closeModal={closeModalAfterBlogPublish} />
-            )}
+              )}
           </Box>
         </Modal>
       </div>

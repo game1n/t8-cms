@@ -5,24 +5,32 @@ import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
 import { HeaderProps } from '../models/header.models';
 import LogoutIcon from '@mui/icons-material/Logout';
-const Header = ({ name, logOut }: HeaderProps): ReactElement => {
+const Header = ({
+  leftContainer,
+  logOut,
+  name,
+  search = false,
+}: HeaderProps): ReactElement => {
   return (
     <HeaderContainer>
-      <CmsTitle>t8 CMS</CmsTitle>
-      <SearchArea>
-        <TextField
-          id="input-with-icon-textfield"
-          label="Search"
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <SearchIcon />
-              </InputAdornment>
-            ),
-          }}
-          variant="standard"
-        />
-      </SearchArea>
+      <CmsTitle>{leftContainer}</CmsTitle>
+      {search && (
+        <SearchArea>
+          <TextField
+            id="input-with-icon-textfield"
+            label="Search"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <SearchIcon />
+                </InputAdornment>
+              ),
+            }}
+            variant="standard"
+          />
+        </SearchArea>
+      )}
+      {!search && <div></div>}
       <SelectArea>
         <TextField
           select
