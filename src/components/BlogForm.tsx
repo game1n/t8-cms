@@ -75,6 +75,7 @@ const BlogForm = ({ publisherName, closeModal }: BlogFormProps): ReactElement =>
           width: '100%',
           fontFamily: 'Roboto, arial, helvetica, sans-serif',
           fontSize: '22px',
+          padding: '2px',
           overflow: 'scroll',
         }}
       />
