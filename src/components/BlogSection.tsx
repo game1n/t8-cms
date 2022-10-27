@@ -88,6 +88,7 @@ const BlogSection = ({
     );
   };
   const copyToClipboard = (id: string): void => {
+    //add the host url where blogs/content will be consumed
     navigator.clipboard.writeText(`https://game1n.live/blogs/${id}`).then(
       () => alert(`copied to clipboard, https://game1n.live/blogs/${id}`),
       () => alert('copy failed')
