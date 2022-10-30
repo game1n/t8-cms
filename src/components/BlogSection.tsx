@@ -9,6 +9,8 @@ import { writeNewBlogInitialState } from '../constants/blog.constants';
 import ShareIcon from '@mui/icons-material/Share';
 import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 const BlogSection = ({
   blogs,
   callback,
@@ -110,7 +112,7 @@ const BlogSection = ({
           <span className="publisher-name">{fullName}</span>
           <ShareIcon onClick={() => copyToClipboard(id)} />
         </UtilContainer>
-        <p className="description">{description}</p>
+        <ReactMarkdown className="description" remarkPlugins={[remarkGfm]}>{description}</ReactMarkdown>
       </BlogContent>
     );
   };
