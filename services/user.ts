@@ -12,11 +12,8 @@ export const getUserDetails = async (
 export const postUserDetails = async (
     userDetailsPayload: any
 ) => {
-    const { data, error } = await supabase
+    const { data, error, status } = await supabase
         .from('users')
         .insert([userDetailsPayload]);
-    if (data) {
-        return data as any;
-    }
-    throw error as any;
+   return status;
 };

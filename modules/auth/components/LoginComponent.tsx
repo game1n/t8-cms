@@ -1,8 +1,10 @@
 import styled from 'styled-components'
-import { Card, Input, Button } from '@nextui-org/react';
+import { Card, Input, Button, Loading } from '@nextui-org/react';
 import { useState } from 'react';
 import { signIn, signUpWithPassword } from '../../../services/auth';
+import { useRouter } from 'next/router';
 const Login = () => {
+    const router = useRouter();
     const [toggle, setToggle] = useState<'LOGIN' | 'SIGN_UP'>('LOGIN');
     const [loading, setLoading] = useState<boolean>(false);
     const [state, setState] = useState<{ email: string, password: string }>({ email: '', password: '' });
@@ -13,21 +15,25 @@ const Login = () => {
         setLoading(true);
         if(toggle === 'LOGIN'){
             try{
-                const response = await signIn(state.email, state.password);
-                console.log(response);
+                const response = await signIn(state.email, state.password)
                 localStorage.setItem('session', JSON.stringify(response));
+                setLoading(false);
+                router.push('/home');
+
             }
             catch(e){
                 console.error({e});
+                setLoading(false);
             }
         }
         else {
             try{
                 const response = await signUpWithPassword(state.email, state.password);
-                console.log(response);
+                setLoading(false);
             }
             catch(e){
                 console.error({e});
+                setLoading(false);
             }
         }
     }
@@ -43,6 +49,7 @@ const Login = () => {
                     <Input placeholder="Password" value={state.password} onChange={(e) => setState({ ...state, password: e.target.value })} type="password" className='input' />
                 </div>
                 <Button bordered color="secondary" auto disabled={disable} onPress={onButtonClick} style={{height: 60}}>
+                {loading && <Loading type="points" color="currentColor" size="sm" />}
                 {toggle === 'LOGIN' ? 'Login' : 'Sign Up'}
                 </Button>
                 <span className="register">{toggle === 'LOGIN' ? 'New user?' : 'Existing User?'} <strong style={{cursor: 'pointer'}} onClick={toggler}>{toggle === 'LOGIN' ? 'Sign up' : 'Login'}</strong></span>
