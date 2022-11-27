@@ -13,7 +13,7 @@ export default function App({ Component, pageProps }: AppProps) {
      if(parseData?.session.access_token){
         return;
      }
-     else router.push('/login');
+     router.push('/login');
     }
     else if(openRoutes.includes(window.location.pathname)){
       if(window.location.pathname === '/read/:id'){
