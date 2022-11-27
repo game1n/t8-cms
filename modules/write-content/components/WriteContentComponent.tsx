@@ -1,7 +1,8 @@
 import { useReducer, useRef, useEffect, useState } from "react";
 import styled from 'styled-components';
+import dynamic from 'next/dynamic';
 import BlogReducer, { initialState, blogType } from "../../../states/blog-reducer/reducer";
-import JoditEditor from 'jodit-react';
+const JoditEditor = dynamic(() => import('jodit-react'), {ssr: false}) 
 import { Input, Button, Loading, Modal } from '@nextui-org/react';
 import { getUserDetails } from "../../../services/user";
 import { UPDATE_HEADING, UPDATE_TITLE, UPDATE_DESCRIPTION, UPDATE_READING_TIME, UPDATE_TAGS } from "../../../states/blog-reducer/action";
