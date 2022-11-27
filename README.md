@@ -1,34 +1,55 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# T8 CMS
 
-## Getting Started
+T8 is a minimal CMS for static sites and blogs.
 
-First, run the development server:
+[![npm version](https://badge.fury.io/js/t8-cms.svg)](https://badge.fury.io/js/t8-cms)
+
+##### Tech Stack
+  - NextJS
+  - TypeScript 
+  - Material UI 
+  - Styled Components
+  - Supabase(BaaS)
+
+##### How to Contribute
+
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/game1n/t8-cms/pulls)
+
+- Take a look at the existing [Issues](https://github.com/game1n/t8-cms/issues) or [create a new issue](https://github.com/game1n/t8-cms/issues/new)!
+- [Fork the Repo](https://github.com/game1n/t8-cms/fork). Then, create a branch for any issue that you are working on. Finally, commit your work.
+- Create a **[Pull Request](https://github.com/game1n/t8-cms/compare)** (_PR_), which will be promptly reviewed and given suggestions for improvements by the community.
+- Add screenshots or screen captures to your Pull Request to help us understand the effects of the changes proposed in your PR.
+
+##### Running the project
+
+1.Clone the repo:
+
+```bash 
+git clone https://github.com/game1n/t8-cms.git
+```
+
+2. Navigate to the cloned directory:
 
 ```bash
-npm run dev
-# or
+cd t8-cms 
+```
+
+3. Install dependencies:
+
+```bash 
+yarn install
+```
+
+4. Run the project
+
+```bash 
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+5. Open the browser to visit the website at http://localhost:3000
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+##### DB Setup
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+The DDL file `t8_ddl.sql` for setting up tables is present in `./resources/postgres/`. It has the DDL for the all the tables required for t8 and the steps to run this file to setup your local postgres DB are present in the file. Since we currently don't support local DB access and are directly using Supabase, you can refer the DDL for table schema and index to setup your own Supabase DB to work with t8.
